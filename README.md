@@ -1,6 +1,8 @@
 # Mongo restore container
 This container will download a given backup file from S3 en use mongorestore to restore the backup to the given MongoDB host (default: mongo:27017).
 
+Note that mongorestore will only do inserts and [no updates](https://docs.mongodb.com/manual/reference/program/mongorestore/#behavior).
+
 Inspired by [schickling/postgres-backup-s3](https://hub.docker.com/r/schickling/postgres-backup-s3/).
 
 # Usage
