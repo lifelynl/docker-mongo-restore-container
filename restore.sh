@@ -23,22 +23,18 @@ if [ "${AWS_S3_PATH}" = "**None**" ]; then
   exit 1
 fi
 
-# Create required directories
+# Create required directory
 mkdir /root/backup_temp/
-mkdir /root/backup_temp/original
 
 # Copy the backup from S3
 if [ "${AWS_SSE_KEY}" = "**None**" ]; then
-  /usr/local/bin/aws s3 cp s3://$AWS_S3_BUCKET/$AWS_S3_PATH /root/backup_temp/backup.tar.gz
+  /usr/local/bin/aws s3 cp s3://$AWS_S3_BUCKET/$AWS_S3_PATH /root/backup_temp/backup.archive.gz
 else
-  /usr/local/bin/aws s3 cp --sse-c --sse-c-key="$AWS_SSE_KEY" s3://$AWS_S3_BUCKET/$AWS_S3_PATH /root/backup_temp/backup.tar.gz
+  /usr/local/bin/aws s3 cp --sse-c --sse-c-key="$AWS_SSE_KEY" s3://$AWS_S3_BUCKET/$AWS_S3_PATH /root/backup_temp/backup.archive.gz
 fi
 
-# Unzip + extract original backup files
-tar -zxvf /root/backup_temp/backup.tar.gz
-
 # Restore database to mongo
-mongorestore --host $MONGO_HOST /root/backup_temp/original
+mongorestore --archive="/root/backup_temp/backup.archive.gz" --gzip --host $MONGO_HOST
 
 # Remove the created backup directory
 rm -rf /root/backup_temp
