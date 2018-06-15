@@ -1,0 +1,23 @@
+version: '2'
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+  mongo-restore:
+    image: lifely/mongo-restore-container
+    container_name: mongo-restore
+    depends_on:
+      - mongo
+
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_S3_BUCKET:
+      AWS_S3_PATH:
+      AWS_REGION: eu-central-1
+      MONGO_HOST: mongo:27017
+      AWS_SSE_KEY:
