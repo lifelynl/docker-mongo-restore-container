@@ -1,5 +1,5 @@
 # Mongo restore container
-This container will download a given backup file from S3 en use mongorestore to restore the backup to the given MongoDB host (default: mongo:27017).
+This container will download a given backup file (gzipped archive) from S3 en use mongorestore to restore the backup to the given MongoDB host (default: mongo:27017).
 
 Currently using MongoDB 3.4.
 
@@ -17,7 +17,7 @@ Run the docker container:
         --env AWS_S3_PATH= \
         lifely/mongo-restore-container
 
-The variables AWS_REGION, MONGO_HOST and AWS_SSE_KEY are optional:
+The variables AWS_REGION, MONGO_HOST, MONGO_CMD_OPTIONS and AWS_SSE_KEY are optional:
 
     docker run \
         --env AWS_ACCESS_KEY_ID= \
@@ -26,6 +26,7 @@ The variables AWS_REGION, MONGO_HOST and AWS_SSE_KEY are optional:
         --env AWS_S3_PATH= \
         --env AWS_REGION=eu-west-1 \
         --env MONGO_HOST=mongo:27017 \
+        --env MONGO_CMD_OPTIONS="--dump --dryRun" \
         --env AWS_SSE_KEY= \
         lifely/mongo-restore-container
 
@@ -62,9 +63,10 @@ Here's a flow for making a backup and doing a restore of a MongoDB:
         --env AWS_ACCESS_KEY_ID=YourID \
         --env AWS_SECRET_ACCESS_KEY=YourKey \
         --env AWS_S3_BUCKET=YourBucket \
-        --env AWS_S3_PATH=YourPrefix/backup-2018-06-15-07-49-06.tar.gz \
+        --env AWS_S3_PATH=YourPrefix/backup-2018-06-15-07-49-06.archive.gz \
         --env AWS_REGION=eu-central-1 \
         --env MONGO_HOST=mongo:27017 \
+        --env MONGO_CMD_OPTIONS="--dump" \
         --env AWS_SSE_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \
         --network mongo_backup_test \
         lifely/mongo-restore-container

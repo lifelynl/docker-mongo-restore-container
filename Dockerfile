@@ -8,6 +8,7 @@ ENV AWS_S3_BUCKET **None**
 ENV AWS_S3_PATH **None**
 ENV AWS_REGION eu-central-1
 ENV MONGO_HOST mongo:27017
+ENV MONGO_CMD_OPTIONS ""
 
 # Install everything and remove the bits we don't need anymore
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 \
