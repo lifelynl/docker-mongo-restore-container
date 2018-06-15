@@ -66,6 +66,7 @@ Here's a flow for making a backup and doing a restore of a MongoDB:
         --env AWS_S3_PATH=YourPrefix/backup-2018-06-15-07-49-06.archive.gz \
         --env AWS_REGION=eu-central-1 \
         --env MONGO_HOST=mongo:27017 \
+        --env MONGO_CMD_OPTIONS="--dump" \
         --env AWS_SSE_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \
         --network mongo_backup_test \
         lifely/mongo-restore-container
