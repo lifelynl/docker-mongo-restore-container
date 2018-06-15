@@ -15,7 +15,7 @@ Run the docker container:
         --env AWS_S3_PATH= \
         lifely/mongo-restore-container
 
-The variables AWS_S3_PREFIX, AWS_REGION, MONGO_HOST and AWS_SSE_KEY are optional:
+The variables AWS_REGION, MONGO_HOST and AWS_SSE_KEY are optional:
 
     docker run \
         --env AWS_ACCESS_KEY_ID= \
