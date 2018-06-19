@@ -5,7 +5,7 @@ Currently using MongoDB 3.4.
 
 Note that mongorestore will only do inserts and [no updates](https://docs.mongodb.com/manual/reference/program/mongorestore/#behavior).
 
-Inspired by [schickling/postgres-backup-s3](https://hub.docker.com/r/schickling/postgres-backup-s3/).
+Somewhat inspired by [schickling/postgres-backup-s3](https://hub.docker.com/r/schickling/postgres-backup-s3/).
 
 # Usage
 Run the docker container:
